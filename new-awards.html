@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Legends - Awards & Achievements</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #667eea;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .page-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .awards-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #667eea;
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-item .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item .label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .ballon-dor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .ballon-dor-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .ballon-dor-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .ballon-dor-card:hover::before {
+            left: 100%;
+        }
+
+        .ballon-dor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .ballon-dor-card .year {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #ffd700;
+        }
+
+        .ballon-dor-card .winner {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .ballon-dor-card .club {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .ballon-dor-card .country {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .ballon-dor-card .achievements {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .achievement-card i {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-card h3 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-card .highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .era-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .era-timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .era-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .era-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .era-card .era-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .era-card .era-years {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .era-card .era-stats {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .records-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .records-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .record-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .record-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .record-card .record-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .record-card .record-holder {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .record-card .record-details {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .notable-winners {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .winners-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .winner-item {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .winner-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .winner-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .winner-info h4 {
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .winner-info p {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .main-content {
+                padding: 0 1rem;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .ballon-dor-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .era-timeline {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <i class="fas fa-futbol"></i>
+                <span>Football Legends</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="new-dashboard.html">Dashboard</a></li>
+                <li><a href="new-team.html">My Team</a></li>
+                <li><a href="new-market.html">Market</a></li>
+                <li><a href="new-statistics.html">Statistics</a></li>
+                <li><a href="new-history.html">History</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <a href="new-dashboard.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+
+        <div class="page-header">
+            <h1>Awards & Achievements</h1>
+            <p>Celebrating the greatest players and moments in football history from 1956 to 2024</p>
+        </div>
+
+        <div class="awards-section">
+            <h2 class="section-title">
+                <i class="fas fa-trophy"></i>
+                Ballon d'Or Winners (1956-2024)
+            </h2>
+            
+            <div class="stats-overview">
+                <div class="stat-item">
+                    <div class="number">68</div>
+                    <div class="label">Years of History</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">8</div>
+                    <div class="label">Lionel Messi Wins</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">5</div>
+                    <div class="label">Cristiano Ronaldo Wins</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">3</div>
+                    <div class="label">Michel Platini Wins</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">13</div>
+                    <div class="label">Different Countries</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">25</div>
+                    <div class="label">Different Clubs</div>
+                </div>
+            </div>
+
+            <div class="ballon-dor-grid">
+                <div class="ballon-dor-card">
+                    <div class="year">2024</div>
+                    <div class="winner">Jude Bellingham</div>
+                    <div class="club">Real Madrid</div>
+                    <div class="country">England</div>
+                    <div class="achievements">UCL Winner, La Liga Champion</div>
+                </div>
+                <div class="ballon-dor-card">
+                    <div class="year">2023</div>
+                    <div class="winner">Lionel Messi</div>
+                    <div class="club">Inter Miami</div>
+                    <div class="country">Argentina</div>
+                    <div class="achievements">World Cup Winner, 8th Ballon d'Or</div>
+                </div>
+                <div class="ballon-dor-card">
+                    <div class="year">2022</div>
+                    <div class="winner">Karim Benzema</div>
+                    <div class="club">Real Madrid</div>
+                    <div class="country">France</div>
+                    <div class="achievements">UCL Winner, La Liga Champion</div>
+                </div>
+                <div class="ballon-dor-card">
+                    <div class="year">2021</div>
+                    <div class="winner">Lionel Messi</div>
+                    <div class="club">Paris Saint-Germain</div>
+                    <div class="country">Argentina</div>
+                    <div class="achievements">Copa América Winner, 7th Ballon d'Or</div>
+                </div>
+                <div class="ballon-dor-card">
+                    <div class="year">2020</div>
+                    <div class="winner">Lionel Messi</div>
+                    <div class="club">Barcelona</div>
+                    <div class="country">Argentina</div>
+                    <div class="achievements">La Liga Champion, 6th Ballon d'Or</div>
+                </div>
+                <div class="ballon-dor-card">
+                    <div class="year">2019</div>
+                    <div class="winner">Lionel Messi</div>
+                    <div class="club">Barcelona</div>
+                    <div class="country">Argentina</div>
+                    <div class="achievements">La Liga Champion, 5th Ballon d'Or</div>
+                </div>
+                <div class="ballon-dor-card">
+                    <div class="year">2018</div>
+                    <div class="winner">Luka Modrić</div>
+                    <div class="club">Real Madrid</div>
+                    <div class="country">Croatia</div>
+                    <div class="achievements">UCL Winner, World Cup Runner-up</div>
+                </div>
+                <div class="ballon-dor-card">
+                    <div class="year">2017</div>
+                    <div class="winner">Cristiano Ronaldo</div>
+                    <div class="club">Real Madrid</div>
+                    <div class="country">Portugal</div>
+                    <div class="achievements">UCL Winner, 5th Ballon d'Or</div>
+                </div>
+                <div class="ballon-dor-card">
+                    <div class="year">2016</div>
+                    <div class="winner">Cristiano Ronaldo</div>
+                    <div class="club">Real Madrid</div>
+                    <div class="country">Portugal</div>
+                    <div class="achievements">UCL Winner, Euro Winner, 4th Ballon d'Or</div>
+                </div>
+                <div class="ballon-dor-card">
+                    <div class="year">2015</div>
+                    <div class="winner">Lionel Messi</div>
+                    <div class="club">Barcelona</div>
+                    <div class="country">Argentina</div>
+                    <div class="achievements">UCL Winner, La Liga Champion, 4th Ballon d'Or</div>
+                </div>
+                <div class="ballon-dor-card">
+                    <div class="year">2014</div>
+                    <div class="winner">Cristiano Ronaldo</div>
+                    <div class="club">Real Madrid</div>
+                    <div class="country">Portugal</div>
+                    <div class="achievements">UCL Winner, 3rd Ballon d'Or</div>
+                </div>
+                <div class="ballon-dor-card">
+                    <div class="year">2013</div>
+                    <div class="winner">Cristiano Ronaldo</div>
+                    <div class="club">Real Madrid</div>
+                    <div class="country">Portugal</div>
+                    <div class="achievements">2nd Ballon d'Or</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="era-section">
+            <h2 class="section-title">
+                <i class="fas fa-clock"></i>
+                Historical Eras
+            </h2>
+            
+            <div class="era-timeline">
+                <div class="era-card">
+                    <div class="era-name">Golden Era</div>
+                    <div class="era-years">1956-1970</div>
+                    <div class="era-stats">Pele, Eusebio, Beckenbauer</div>
+                </div>
+                <div class="era-card">
+                    <div class="era-name">Modern Era</div>
+                    <div class="era-years">1971-1990</div>
+                    <div class="era-stats">Cruyff, Platini, Maradona</div>
+                </div>
+                <div class="era-card">
+                    <div class="era-name">Contemporary Era</div>
+                    <div class="era-years">1991-2010</div>
+                    <div class="era-stats">Ronaldo, Zidane, Ronaldinho</div>
+                </div>
+                <div class="era-card">
+                    <div class="era-name">Messi-Ronaldo Era</div>
+                    <div class="era-years">2011-2020</div>
+                    <div class="era-stats">Messi, Ronaldo, Modric</div>
+                </div>
+                <div class="era-card">
+                    <div class="era-name">New Generation</div>
+                    <div class="era-years">2021-Present</div>
+                    <div class="era-stats">Haaland, Mbappe, Bellingham</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="records-section">
+            <h2 class="section-title">
+                <i class="fas fa-medal"></i>
+                Notable Records & Achievements
+            </h2>
+            
+            <div class="records-grid">
+                <div class="record-card">
+                    <div class="record-title">Most Ballon d'Or Wins</div>
+                    <div class="record-holder">Lionel Messi</div>
+                    <div class="record-details">8 awards (2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023)</div>
+                </div>
+                <div class="record-card">
+                    <div class="record-title">Consecutive Wins</div>
+                    <div class="record-holder">Lionel Messi</div>
+                    <div class="record-details">4 consecutive awards (2009-2012)</div>
+                </div>
+                <div class="record-card">
+                    <div class="record-title">Oldest Winner</div>
+                    <div class="record-holder">Stanley Matthews</div>
+                    <div class="record-details">41 years old in 1956 (first ever winner)</div>
+                </div>
+                <div class="record-card">
+                    <div class="record-title">Youngest Winner</div>
+                    <div class="record-holder">Ronaldo Nazário</div>
+                    <div class="record-details">21 years old in 1997</div>
+                </div>
+                <div class="record-card">
+                    <div class="record-title">Most Nominations</div>
+                    <div class="record-holder">Cristiano Ronaldo</div>
+                    <div class="record-details">18 nominations (2004-2021)</div>
+                </div>
+                <div class="record-card">
+                    <div class="record-title">Club with Most Winners</div>
+                    <div class="record-holder">Real Madrid</div>
+                    <div class="record-details">12 Ballon d'Or winners</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="notable-winners">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Legendary Winners
+            </h2>
+            
+            <div class="winners-list">
+                <div class="winner-item">
+                    <div class="winner-avatar">LM</div>
+                    <div class="winner-info">
+                        <h4>Lionel Messi</h4>
+                        <p>8 Ballon d'Or (2009-2012, 2015, 2019, 2021, 2023)</p>
+                    </div>
+                </div>
+                <div class="winner-item">
+                    <div class="winner-avatar">CR</div>
+                    <div class="winner-info">
+                        <h4>Cristiano Ronaldo</h4>
+                        <p>5 Ballon d'Or (2008, 2013, 2014, 2016, 2017)</p>
+                    </div>
+                </div>
+                <div class="winner-item">
+                    <div class="winner-avatar">MP</div>
+                    <div class="winner-info">
+                        <h4>Michel Platini</h4>
+                        <p>3 Ballon d'Or (1983, 1984, 1985)</p>
+                    </div>
+                </div>
+                <div class="winner-item">
+                    <div class="winner-avatar">JC</div>
+                    <div class="winner-info">
+                        <h4>Johan Cruyff</h4>
+                        <p>3 Ballon d'Or (1971, 1973, 1974)</p>
+                    </div>
+                </div>
+                <div class="winner-item">
+                    <div class="winner-avatar">FB</div>
+                    <div class="winner-info">
+                        <h4>Franz Beckenbauer</h4>
+                        <p>2 Ballon d'Or (1972, 1976)</p>
+                    </div>
+                </div>
+                <div class="winner-item">
+                    <div class="winner-avatar">R9</div>
+                    <div class="winner-info">
+                        <h4>Ronaldo Nazário</h4>
+                        <p>2 Ballon d'Or (1997, 2002)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="awards-section">
+            <h2 class="section-title">
+                <i class="fas fa-award"></i>
+                Major Achievements
+            </h2>
+            
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Most Ballon d'Or Wins</h3>
+                    <p>Lionel Messi holds the record with 8 Ballon d'Or awards, followed by Cristiano Ronaldo with 5. This dominance spans over a decade of football excellence.</p>
+                    <span class="highlight">8 Awards</span>
+                </div>
+                <div class="achievement-card">
+                    <i class="fas fa-star"></i>
+                    <h3>Consecutive Wins</h3>
+                    <p>Lionel Messi won 4 consecutive Ballon d'Or awards from 2009 to 2012, a record achievement that may never be broken in modern football.</p>
+                    <span class="highlight">4 Years Straight</span>
+                </div>
+                <div class="achievement-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>Global Recognition</h3>
+                    <p>The Ballon d'Or is considered the most prestigious individual award in football worldwide, recognizing the best player of each calendar year.</p>
+                    <span class="highlight">World's Best</span>
+                </div>
+                <div class="achievement-card">
+                    <i class="fas fa-history"></i>
+                    <h3>Historical Legacy</h3>
+                    <p>First awarded in 1956 to Stanley Matthews, the award has recognized football's greatest talents across nearly seven decades of the sport.</p>
+                    <span class="highlight">68 Years</span>
+                </div>
+                <div class="achievement-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Team Success</h3>
+                    <p>Real Madrid players have won the most Ballon d'Or awards as a club, with 12 total wins, showcasing their dominance in European football.</p>
+                    <span class="highlight">12 Winners</span>
+                </div>
+                <div class="achievement-card">
+                    <i class="fas fa-flag"></i>
+                    <h3>National Pride</h3>
+                    <p>Argentine players have won the most Ballon d'Or awards by nationality, with 8 wins, followed by French players with 7 wins.</p>
+                    <span class="highlight">Argentina Leads</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Add hover effects for Ballon d'Or cards
+        document.querySelectorAll('.ballon-dor-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add animation for stat items
+        document.querySelectorAll('.stat-item').forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+            item.style.animation = 'fadeInUp 0.6s ease forwards';
+        });
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 

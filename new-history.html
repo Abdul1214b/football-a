@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football History - Football Legends</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #667eea;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .page-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .timeline-controls {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .year-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .year-input {
+            padding: 0.8rem 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 120px;
+            text-align: center;
+        }
+
+        .year-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .year-slider {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e1e5e9;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            border: none;
+        }
+
+        .year-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            min-width: 80px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .arrow {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card.expanded .arrow {
+            transform: rotate(180deg);
+        }
+
+        .stat-card .details {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e1e5e9;
+            text-align: left;
+        }
+
+        .stat-card .details.show {
+            display: block;
+        }
+
+        .stat-card .details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .stat-card .details li {
+            padding: 0.3rem 0;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .stat-card .details .winner {
+            color: #333;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .decade-navigation {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .decade-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .decade-btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #667eea;
+            background: transparent;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .decade-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .decade-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .main-content {
+                padding: 0 1rem;
+            }
+            
+            .year-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .decade-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="new-dashboard.html" class="logo">
+                <i class="fas fa-futbol"></i>
+                <span>Football Legends</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="new-dashboard.html">Dashboard</a></li>
+                <li><a href="new-team.html">My Team</a></li>
+                <li><a href="new-market.html">Market</a></li>
+                <li><a href="new-statistics.html">Statistics</a></li>
+                <li><a href="new-history.html">History</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Football History</h1>
+            <p>Explore football history from 1956 to 2024</p>
+        </div>
+
+        <div class="timeline-controls">
+            <div class="year-selector">
+                <input type="number" class="year-input" id="yearInput" min="1956" max="2024" value="2024">
+                <div class="year-slider">
+                    <input type="range" class="slider" id="yearSlider" min="1956" max="2024" value="2024">
+                </div>
+                <div class="year-display" id="yearDisplay">2024</div>
+            </div>
+        </div>
+
+        <div class="decade-navigation">
+            <div class="decade-buttons">
+                <button class="decade-btn" onclick="goToDecade('1950s')">1950s</button>
+                <button class="decade-btn" onclick="goToDecade('1960s')">1960s</button>
+                <button class="decade-btn" onclick="goToDecade('1970s')">1970s</button>
+                <button class="decade-btn" onclick="goToDecade('1980s')">1980s</button>
+                <button class="decade-btn" onclick="goToDecade('1990s')">1990s</button>
+                <button class="decade-btn" onclick="goToDecade('2000s')">2000s</button>
+                <button class="decade-btn" onclick="goToDecade('2010s')">2010s</button>
+                <button class="decade-btn active" onclick="goToDecade('2020s')">2020s</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card" id="championshipsCard">
+                <i class="fas fa-trophy"></i>
+                <h3 id="championships">0</h3>
+                <p>Major Championships</p>
+            </div>
+            <div class="stat-card" id="ballonDorCard" style="cursor:pointer;">
+                <i class="fas fa-star"></i>
+                <h3 id="ballonDor">0</h3>
+                <p>Ballon d'Or Winners</p>
+                <div class="arrow">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="details" id="ballonDorDetails">
+                    <div class="winner" id="ballonDorWinner"></div>
+                </div>
+            </div>
+            <div class="stat-card" id="mvpCard">
+                <i class="fas fa-trophy"></i>
+                <h3 id="mvp">-</h3>
+                <p>Most Valuable Player</p>
+                <div id="mvpInfo"></div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-calendar"></i>
+                <h3 id="yearSpan">68</h3>
+                <p>Years of History</p>
+            </div>
+            <div class="stat-card" id="topScorerCard" style="cursor:pointer;">
+                <i class="fas fa-bullseye"></i>
+                <h3 id="topScorer">-</h3>
+                <p>Top Goal Scorer</p>
+                <div class="arrow">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="details" id="topScorerDetails">
+                    <div id="topScorerInfo"></div>
+                </div>
+            </div>
+            <div class="stat-card" id="debutsRetirementsCard">
+                <i class="fas fa-exchange-alt"></i>
+                <h3 id="debutsRetirements">-</h3>
+                <p>Retirements</p>
+                <div id="debutsRetirementsInfo"></div>
+            </div>
+            <div class="stat-card" id="fifaRankingsCard" style="cursor:pointer;">
+                <i class="fas fa-globe"></i>
+                <h3 id="fifaRankings">-</h3>
+                <p>Top 3 FIFA Rankings</p>
+                <div class="arrow">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="details" id="fifaRankingsDetails">
+                    <div id="fifaRankingsInfo"></div>
+                </div>
+            </div>
+            <div class="stat-card" id="majorChampionsCard" style="cursor:pointer;">
+                <i class="fas fa-medal"></i>
+                <h3 id="majorChampions">-</h3>
+                <p>Major Champions</p>
+                <div class="arrow">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="details" id="majorChampionsDetails">
+                    <div id="majorChampionsInfo"></div>
+                </div>
+            </div>
+            <div class="stat-card" id="iconicMomentCard" style="cursor:pointer;">
+                <i class="fas fa-lightbulb"></i>
+                <h3 id="iconicMoment">-</h3>
+                <p>Moment of the Year</p>
+                <div class="arrow">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="details" id="iconicMomentDetails">
+                    <div id="iconicMomentInfo"></div>
+                </div>
+            </div>
+            <div class="stat-card" id="transferCard" style="cursor:pointer;">
+                <i class="fas fa-money-bill-wave"></i>
+                <h3 id="transfer">-</h3>
+                <p>Transfer of the Year</p>
+                <div class="arrow">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="details" id="transferDetails">
+                    <div id="transferInfo"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample historical data
+const historicalData = {
+  1956: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Alfredo Di Stéfano', club: 'Real Madrid', goals: 43 },
+    debuts: [],
+    retirements: ['Stanley Matthews'],
+    fifaRankings: ['Hungary', 'West Germany', 'Austria'],
+    majorChampions: {
+      ucl: 'Real Madrid',
+      libertadores: 'No tournament',
+      premierLeague: 'Manchester United',
+      laLiga: 'Athletic Bilbao',
+      worldCup: 'Not held',
+      clubWorldCup: 'Not held'
+    },
+    iconicMoment: 'First European Cup held.',
+    transfer: { player: 'Omar Sivori', from: 'River Plate', to: 'Juventus', fee: '£91,000' },
+    mvp: 'Alfredo Di Stéfano',
+    mvpClub: 'Real Madrid',
+    mvpReason: 'Led Real Madrid to European Cup victory'
+  },
+  1957: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Just Fontaine', club: 'Reims', goals: 34 },
+    debuts: [],
+    retirements: ['Tom Finney'],
+    fifaRankings: ['Hungary', 'England', 'Brazil'],
+    majorChampions: {
+      ucl: 'Real Madrid',
+      libertadores: 'No tournament',
+      premierLeague: 'Manchester United',
+      laLiga: 'Real Madrid',
+      worldCup: 'Not held',
+      clubWorldCup: 'Not held'
+    },
+    iconicMoment: 'Real Madrid win second European Cup.',
+    transfer: { player: 'John Charles', from: 'Leeds United', to: 'Juventus', fee: '£65,000' },
+    mvp: 'Alfredo Di Stéfano',
+    mvpClub: 'Real Madrid',
+    mvpReason: 'Continued dominance in European football'
+  },
+  1958: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Just Fontaine', club: 'Reims', goals: 39 },
+    debuts: [],
+    retirements: ['Alfredo Di Stéfano'],
+    fifaRankings: ['Brazil', 'West Germany', 'France'],
+    majorChampions: {
+      ucl: 'Real Madrid',
+      libertadores: 'No tournament',
+      premierLeague: 'Wolves',
+      laLiga: 'Real Madrid',
+      worldCup: 'Not held',
+      clubWorldCup: 'Not held'
+    },
+    iconicMoment: 'Pelé wins World Cup at age 17.',
+    transfer: { player: 'Pelé', from: 'Santos', to: 'Santos', fee: 'Youth contract' },
+    mvp: 'Pelé',
+    mvpClub: 'Santos',
+    mvpReason: 'World Cup hero at age 17'
+  },
+  1959: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Alfredo Di Stéfano', club: 'Real Madrid', goals: 37 },
+    debuts: [],
+    retirements: ['Billy Wright'],
+    fifaRankings: ['Brazil', 'West Germany', 'England'],
+    majorChampions: {
+      ucl: 'Real Madrid',
+      libertadores: 'No tournament',
+      premierLeague: 'Wolves',
+      laLiga: 'Barcelona',
+      worldCup: 'Not held',
+      clubWorldCup: 'Not held'
+    },
+    iconicMoment: 'Real Madrid win fourth consecutive European Cup.',
+    transfer: { player: 'John Charles', from: 'Juventus', to: 'Leeds United', fee: '£65,000' },
+    mvp: 'Alfredo Di Stéfano',
+    mvpClub: 'Real Madrid',
+    mvpReason: 'Fourth consecutive European Cup'
+  },
+  1960: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Ferenc Puskás', club: 'Real Madrid', goals: 47 },
+    debuts: [],
+    retirements: ['Alfredo Di Stéfano'],
+    fifaRankings: ['Brazil', 'West Germany', 'England'],
+    majorChampions: {
+      ucl: 'Real Madrid',
+      libertadores: 'Peñarol',
+      premierLeague: 'Burnley',
+      laLiga: 'Barcelona',
+      worldCup: 'Not held',
+      clubWorldCup: 'Not held'
+    },
+    iconicMoment: 'Real Madrid win fifth consecutive European Cup.',
+    transfer: { player: 'Luis Suárez', from: 'Barcelona', to: 'Inter Milan', fee: '£142,000' },
+    mvp: 'Ferenc Puskás',
+    mvpClub: 'Real Madrid',
+    mvpReason: 'Fifth consecutive European Cup'
+  },
+  1970: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Gerd Müller', club: 'Bayern Munich', goals: 38 },
+    debuts: [],
+    retirements: ['Pelé'],
+    fifaRankings: ['Brazil', 'West Germany', 'Italy'],
+    majorChampions: {
+      ucl: 'Feyenoord',
+      libertadores: 'Estudiantes',
+      premierLeague: 'Everton',
+      laLiga: 'Atlético Madrid',
+      worldCup: 'Brazil',
+      clubWorldCup: 'Not held'
+    },
+    iconicMoment: 'Brazil win World Cup with beautiful football.',
+    transfer: { player: 'Johan Cruyff', from: 'Ajax', to: 'Barcelona', fee: '€1.2M' },
+    mvp: 'Pelé',
+    mvpClub: 'Santos',
+    mvpReason: 'Led Brazil to World Cup glory'
+  },
+  1986: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Marco van Basten', club: 'Ajax', goals: 37 },
+    debuts: [],
+    retirements: ['Michel Platini'],
+    fifaRankings: ['Argentina', 'West Germany', 'Brazil'],
+    majorChampions: {
+      ucl: 'Steaua București',
+      libertadores: 'River Plate',
+      premierLeague: 'Liverpool',
+      laLiga: 'Real Madrid',
+      worldCup: 'Argentina',
+      clubWorldCup: 'River Plate'
+    },
+    iconicMoment: 'Maradona\'s "Hand of God" and "Goal of the Century".',
+    transfer: { player: 'Marco van Basten', from: 'Ajax', to: 'Milan', fee: '€1.2M' },
+    mvp: 'Diego Maradona',
+    mvpClub: 'Napoli',
+    mvpReason: 'World Cup hero with Hand of God and Goal of the Century'
+  },
+  1998: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Ronaldo Nazário', club: 'Inter Milan', goals: 34 },
+    debuts: [],
+    retirements: ['Marco van Basten'],
+    fifaRankings: ['France', 'Brazil', 'Germany'],
+    majorChampions: {
+      ucl: 'Real Madrid',
+      libertadores: 'Vasco da Gama',
+      premierLeague: 'Arsenal',
+      laLiga: 'Barcelona',
+      worldCup: 'France',
+      clubWorldCup: 'Real Madrid'
+    },
+    iconicMoment: 'France win World Cup on home soil.',
+    transfer: { player: 'Ronaldo Nazário', from: 'Barcelona', to: 'Inter Milan', fee: '€27M' },
+    mvp: 'Zinedine Zidane',
+    mvpClub: 'Juventus',
+    mvpReason: 'Led France to World Cup victory'
+  },
+  2008: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Cristiano Ronaldo', club: 'Manchester United', goals: 42 },
+    debuts: [],
+    retirements: ['Zinedine Zidane'],
+    fifaRankings: ['Spain', 'Germany', 'Netherlands'],
+    majorChampions: {
+      ucl: 'Manchester United',
+      libertadores: 'LDU Quito',
+      premierLeague: 'Manchester United',
+      laLiga: 'Real Madrid',
+      worldCup: 'Not held',
+      clubWorldCup: 'Manchester United'
+    },
+    iconicMoment: 'Cristiano Ronaldo wins first Ballon d\'Or.',
+    transfer: { player: 'Cristiano Ronaldo', from: 'Manchester United', to: 'Real Madrid', fee: '€94M' },
+    mvp: 'Cristiano Ronaldo',
+    mvpClub: 'Manchester United',
+    mvpReason: 'First Ballon d\'Or and Champions League victory'
+  },
+  2018: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Lionel Messi', club: 'Barcelona', goals: 45 },
+    debuts: [],
+    retirements: ['Andrés Iniesta'],
+    fifaRankings: ['France', 'Belgium', 'Brazil'],
+    majorChampions: {
+      ucl: 'Real Madrid',
+      libertadores: 'River Plate',
+      premierLeague: 'Manchester City',
+      laLiga: 'Barcelona',
+      worldCup: 'France',
+      clubWorldCup: 'Real Madrid'
+    },
+    iconicMoment: 'France win World Cup, Luka Modrić wins Ballon d\'Or.',
+    transfer: { player: 'Cristiano Ronaldo', from: 'Real Madrid', to: 'Juventus', fee: '€100M' },
+    mvp: 'Luka Modrić',
+    mvpClub: 'Real Madrid',
+    mvpReason: 'Ballon d\'Or winner and Champions League triumph'
+  },
+  2020: {
+    stats: { championships: 0, ballonDor: 0, legendaryPlayers: 1 },
+    topScorer: { name: 'Robert Lewandowski', club: 'Bayern Munich', goals: 55 },
+    debuts: [],
+    retirements: ['Iker Casillas'],
+    fifaRankings: ['Belgium', 'France', 'Brazil'],
+    majorChampions: {
+      ucl: 'Bayern Munich',
+      libertadores: 'Palmeiras',
+      premierLeague: 'Liverpool',
+      laLiga: 'Real Madrid',
+      worldCup: 'Not held',
+      clubWorldCup: 'Bayern Munich'
+    },
+    iconicMoment: 'Football paused worldwide due to COVID-19 pandemic.',
+    transfer: { player: 'Kai Havertz', from: 'Bayer Leverkusen', to: 'Chelsea', fee: '€80M' },
+    mvp: 'Robert Lewandowski',
+    mvpClub: 'Bayern Munich',
+    mvpReason: 'Champions League victory and prolific goalscoring'
+  },
+  2021: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Robert Lewandowski', club: 'Bayern Munich', goals: 48 },
+    debuts: [],
+    retirements: ['Sergio Agüero'],
+    fifaRankings: ['Belgium', 'Brazil', 'France'],
+    majorChampions: {
+      ucl: 'Chelsea',
+      libertadores: 'Palmeiras',
+      premierLeague: 'Manchester City',
+      laLiga: 'Atlético Madrid',
+      worldCup: 'Not held',
+      clubWorldCup: 'Chelsea'
+    },
+    iconicMoment: 'Lionel Messi wins record 7th Ballon d\'Or.',
+    transfer: { player: 'Lionel Messi', from: 'Barcelona', to: 'PSG', fee: 'Free transfer' },
+    mvp: 'Lionel Messi',
+    mvpClub: 'Barcelona',
+    mvpReason: 'Record 7th Ballon d\'Or and Copa América victory'
+  },
+  2022: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Kylian Mbappe', club: 'Paris SG', goals: 56 },
+    debuts: [],
+    retirements: ['Gareth Bale'],
+    fifaRankings: ['Brazil', 'Argentina', 'France'],
+    majorChampions: {
+      ucl: 'Real Madrid',
+      libertadores: 'Flamengo',
+      premierLeague: 'Manchester City',
+      laLiga: 'Real Madrid',
+      worldCup: 'Argentina',
+      clubWorldCup: 'Real Madrid'
+    },
+    iconicMoment: 'Argentina win World Cup, Messi\'s crowning achievement.',
+    transfer: { player: 'Erling Haaland', from: 'Borussia Dortmund', to: 'Manchester City', fee: '€60M' },
+    mvp: 'Lionel Messi',
+    mvpClub: 'PSG',
+    mvpReason: 'World Cup victory and Golden Ball winner'
+  },
+  2023: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Cristiano Ronaldo', club: 'Al Nassar', goals: 54 },
+    debuts: [],
+    retirements: ['Gianluigi Buffon'],
+    fifaRankings: ['Argentina', 'France', 'Spain'],
+    majorChampions: {
+      ucl: 'Manchester City',
+      libertadores: 'Fluminense',
+      premierLeague: 'Manchester City',
+      laLiga: 'Barcelona',
+      worldCup: 'Not held',
+      clubWorldCup: 'Manchester City'
+    },
+    iconicMoment: 'Lionel Messi wins 8th Ballon d\'Or, moves to Inter Miami.',
+    transfer: { player: 'Jude Bellingham', from: 'Borussia Dortmund', to: 'Real Madrid', fee: '€103M' },
+    mvp: 'Lionel Messi',
+    mvpClub: 'Inter Miami',
+    mvpReason: '8th Ballon d\'Or and Leagues Cup victory'
+  },
+  2024: {
+    stats: { championships: 0, ballonDor: 1, legendaryPlayers: 1 },
+    topScorer: { name: 'Viktor Gyökeres', club: 'Sporting CP', goals: 59 },
+    debuts: [],
+    retirements: ['Toni Kroos'],
+    fifaRankings: ['Argentina', 'France', 'Spain'],
+    majorChampions: {
+      ucl: 'Real Madrid',
+      libertadores: 'Botafogo',
+      premierLeague: 'Manchester City',
+      laLiga: 'Real Madrid',
+      worldCup: 'Not held',
+      clubWorldCup: 'not held'
+    },
+    iconicMoment: 'Franz Beckenbauer died in 2024, leaving football in mourning.',
+    transfer: { player: 'Julian Alvarez', from: 'Man City', to: 'Atletico Madrid', fee: '€82M' },
+    mvp: 'Rodri',
+    mvpClub: 'Manchester City',
+    mvpReason: 'Ballon d\'Or winner and Champions League triumph'
+  }
+};
+        let currentYear = 2024;
+
+
+
+        function updateYear(year) {
+            currentYear = year;
+            document.getElementById('yearInput').value = year;
+            document.getElementById('yearSlider').value = year;
+            document.getElementById('yearDisplay').textContent = year;
+            loadYearData(year);
+            // Hide the details when year changes
+            document.getElementById('ballonDorDetails').classList.remove('show');
+            document.getElementById('ballonDorCard').classList.remove('expanded');
+            document.getElementById('topScorerDetails').classList.remove('show');
+            document.getElementById('topScorerCard').classList.remove('expanded');
+            document.getElementById('debutsRetirementsDetails').classList.remove('show');
+            document.getElementById('debutsRetirementsCard').classList.remove('expanded');
+            document.getElementById('fifaRankingsDetails').classList.remove('show');
+            document.getElementById('fifaRankingsCard').classList.remove('expanded');
+            document.getElementById('majorChampionsDetails').classList.remove('show');
+            document.getElementById('majorChampionsCard').classList.remove('expanded');
+            document.getElementById('iconicMomentDetails').classList.remove('show');
+            document.getElementById('iconicMomentCard').classList.remove('expanded');
+            document.getElementById('transferDetails').classList.remove('show');
+            document.getElementById('transferCard').classList.remove('expanded');
+        }
+
+        function generateYearData(year) {
+            // Generate data for years not in historicalData
+            const ballonWinners = {
+                1956: 'Stanley Matthews', 1957: 'Alfredo Di Stéfano', 1958: 'Raymond Kopa', 1959: 'Alfredo Di Stéfano',
+                1960: 'Luis Suárez', 1961: 'Omar Sivori', 1962: 'Josef Masopust', 1963: 'Lev Yashin', 1964: 'Denis Law',
+                1965: 'Eusébio', 1966: 'Bobby Charlton', 1967: 'Flórián Albert', 1968: 'George Best', 1969: 'Gianni Rivera',
+                1970: 'Gerd Müller', 1971: 'Johan Cruyff', 1972: 'Franz Beckenbauer', 1973: 'Johan Cruyff', 1974: 'Johan Cruyff',
+                1975: 'Oleg Blokhin', 1976: 'Franz Beckenbauer', 1977: 'Allan Simonsen', 1978: 'Kevin Keegan', 1979: 'Kevin Keegan',
+                1980: 'Karl-Heinz Rummenigge', 1981: 'Karl-Heinz Rummenigge', 1982: 'Paolo Rossi', 1983: 'Michel Platini',
+                1984: 'Michel Platini', 1985: 'Michel Platini', 1986: 'Igor Belanov', 1987: 'Ruud Gullit', 1988: 'Marco van Basten',
+                1989: 'Marco van Basten', 1990: 'Lothar Matthäus', 1991: 'Jean-Pierre Papin', 1992: 'Marco van Basten',
+                1993: 'Roberto Baggio', 1994: 'Hristo Stoichkov', 1995: 'George Weah', 1996: 'Matthias Sammer',
+                1997: 'Ronaldo Nazário', 1998: 'Zinedine Zidane', 1999: 'Rivaldo', 2000: 'Luís Figo', 2001: 'Michael Owen',
+                2002: 'Ronaldo Nazário', 2003: 'Pavel Nedvěd', 2004: 'Andriy Shevchenko', 2005: 'Ronaldinho',
+                2006: 'Fabio Cannavaro', 2007: 'Kaká', 2008: 'Cristiano Ronaldo', 2009: 'Lionel Messi',
+                2010: 'Lionel Messi', 2011: 'Lionel Messi', 2012: 'Lionel Messi', 2013: 'Cristiano Ronaldo',
+                2014: 'Cristiano Ronaldo', 2015: 'Lionel Messi', 2016: 'Cristiano Ronaldo', 2017: 'Cristiano Ronaldo',
+                2018: 'Luka Modrić', 2019: 'Lionel Messi', 2020: 'Award Cancelled due to COVID', 2021: 'Lionel Messi',
+                2022: 'Karim Benzema', 2023: 'Lionel Messi', 2024: 'Rodri'
+            };
+            
+            // Create a mapping of Ballon d'Or winners to their clubs
+            const ballonWinnersClubs = {
+                1956: 'Blackpool', 1957: 'Real Madrid', 1958: 'Real Madrid', 1959: 'Real Madrid',
+                1960: 'Barcelona', 1961: 'Juventus', 1962: 'Dukla Prague', 1963: 'Dynamo Moscow',
+                1964: 'Manchester United', 1965: 'Benfica', 1966: 'Manchester United', 1967: 'Ferencváros',
+                1968: 'Manchester United', 1969: 'Milan', 1970: 'Bayern Munich', 1971: 'Ajax',
+                1972: 'Bayern Munich', 1973: 'Ajax', 1974: 'Ajax', 1975: 'Dynamo Kyiv',
+                1976: 'Bayern Munich', 1977: 'Borussia Mönchengladbach', 1978: 'Hamburger SV',
+                1979: 'Hamburger SV', 1980: 'Bayern Munich', 1981: 'Bayern Munich', 1982: 'Juventus',
+                1983: 'Juventus', 1984: 'Juventus', 1985: 'Juventus', 1986: 'Dynamo Kyiv',
+                1987: 'Milan', 1988: 'Milan', 1989: 'Milan', 1990: 'Inter Milan',
+                1991: 'Marseille', 1992: 'Milan', 1993: 'Juventus', 1994: 'Barcelona',
+                1995: 'Paris Saint-Germain', 1996: 'Borussia Dortmund', 1997: 'Barcelona',
+                1998: 'Juventus', 1999: 'Barcelona', 2000: 'Real Madrid', 2001: 'Liverpool',
+                2002: 'Real Madrid', 2003: 'Juventus', 2004: 'Milan', 2005: 'Barcelona',
+                2006: 'Real Madrid', 2007: 'Milan', 2008: 'Manchester United', 2009: 'Barcelona',
+                2010: 'Barcelona', 2011: 'Barcelona', 2012: 'Barcelona', 2013: 'Real Madrid',
+                2014: 'Real Madrid', 2015: 'Barcelona', 2016: 'Real Madrid', 2017: 'Real Madrid',
+                2018: 'Real Madrid', 2019: 'Barcelona', 2020: 'Award Cancelled', 2021: 'Paris Saint-Germain',
+                2022: 'Real Madrid', 2023: 'Inter Miami', 2024: 'Manchester City'
+            };
+            
+            return {
+                stats: { championships: 0, ballonDor: (year >= 1956 && year <= 2024 && year !== 2020) ? 1 : 0, legendaryPlayers: 5 },
+                topScorer: { name: ballonWinners[year] || 'Unknown', club: 'Various', goals: 'N/A' },
+                debuts: [],
+                retirements: ['Various players'],
+                mvp: ballonWinners[year] || 'Unknown',
+                mvpClub: ballonWinnersClubs[year] || 'Unknown',
+                mvpReason: 'Outstanding performance',
+                fifaRankings: ['Various', 'Various', 'Various'],
+                majorChampions: {
+                  ucl: 'Various',
+                  libertadores: 'Various',
+                  premierLeague: 'Various',
+                  laLiga: 'Various',
+                  worldCup: 'Various',
+                  clubWorldCup: 'Various'
+                },
+                iconicMoment: `Football history in ${year}`,
+                transfer: { player: 'Various', from: 'Various', to: 'Various', fee: 'Various' }
+            };
+        }
+
+        function loadYearData(year) {
+            const data = historicalData[year] || generateYearData(year);
+            
+            // Ballon d'Or logic - show 1 for years with winners, 0 for 2020
+            const ballonDorCount = (year >= 1956 && year <= 2024 && year !== 2020) ? 1 : 0;
+            
+            // Update stats
+            document.getElementById('championships').textContent = data.stats.championships;
+            document.getElementById('ballonDor').textContent = ballonDorCount;
+            document.getElementById('mvp').textContent = data.mvp || '-';
+            document.getElementById('mvpInfo').innerHTML = '';
+            // New fields
+            document.getElementById('topScorer').textContent = data.topScorer.name;
+            document.getElementById('topScorerInfo').innerHTML = `Club: ${data.topScorer.club}<br>Goals: ${data.topScorer.goals}`;
+            document.getElementById('debutsRetirements').textContent = data.retirements[0] || '-';
+            document.getElementById('debutsRetirementsInfo').innerHTML = data.retirements.length > 1 ? `<br><small>+${data.retirements.length - 1} more</small>` : '';
+            document.getElementById('fifaRankings').textContent = 'Top 3 Rankings';
+            document.getElementById('fifaRankingsInfo').innerHTML = `<ol style="text-align: center; list-style-position: inside;"><li>${data.fifaRankings[0]}</li><li>${data.fifaRankings[1]}</li><li>${data.fifaRankings[2]}</li></ol>`;
+            document.getElementById('majorChampions').textContent = data.majorChampions.ucl;
+            document.getElementById('majorChampionsInfo').innerHTML = `
+              <b>UCL:</b> ${data.majorChampions.ucl}<br>
+              <b>Copa Libertadores:</b> ${data.majorChampions.libertadores}<br>
+              <b>Premier League:</b> ${data.majorChampions.premierLeague}<br>
+              <b>La Liga:</b> ${data.majorChampions.laLiga}<br>
+              <b>FIFA World Cup:</b> ${data.majorChampions.worldCup}<br>
+              <b>FIFA Club World Cup:</b> ${data.majorChampions.clubWorldCup}
+            `;
+            document.getElementById('iconicMoment').textContent = 'Iconic Moment';
+            document.getElementById('iconicMomentInfo').textContent = data.iconicMoment;
+            document.getElementById('transfer').textContent = data.transfer.player;
+            document.getElementById('transferInfo').innerHTML = `From: ${data.transfer.from}<br>To: ${data.transfer.to}<br>Fee: ${data.transfer.fee}`;
+        }
+
+        function goToDecade(decade) {
+            // Update active button
+            document.querySelectorAll('.decade-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Set year based on decade
+            const decadeYears = {
+                '1950s': 1956,
+                '1960s': 1966,
+                '1970s': 1976,
+                '1980s': 1986,
+                '1990s': 1996,
+                '2000s': 2006,
+                '2010s': 2016,
+                '2020s': 2024
+            };
+
+            updateYear(decadeYears[decade]);
+        }
+
+        // Event listeners
+        document.getElementById('yearInput').addEventListener('change', function() {
+            const year = parseInt(this.value);
+            if (year >= 1956 && year <= 2024) {
+                updateYear(year);
+            }
+        });
+
+        document.getElementById('yearSlider').addEventListener('input', function() {
+            updateYear(parseInt(this.value));
+        });
+
+
+
+        document.getElementById('ballonDorCard').addEventListener('click', function() {
+            const detailsDiv = document.getElementById('ballonDorDetails');
+            const winnerDiv = document.getElementById('ballonDorWinner');
+            
+            // Use the same comprehensive list as in generateYearData
+            const ballonWinners = {
+                1956: 'Stanley Matthews', 1957: 'Alfredo Di Stéfano', 1958: 'Raymond Kopa', 1959: 'Alfredo Di Stéfano',
+                1960: 'Luis Suárez', 1961: 'Omar Sivori', 1962: 'Josef Masopust', 1963: 'Lev Yashin', 1964: 'Denis Law',
+                1965: 'Eusébio', 1966: 'Bobby Charlton', 1967: 'Flórián Albert', 1968: 'George Best', 1969: 'Gianni Rivera',
+                1970: 'Gerd Müller', 1971: 'Johan Cruyff', 1972: 'Franz Beckenbauer', 1973: 'Johan Cruyff', 1974: 'Johan Cruyff',
+                1975: 'Oleg Blokhin', 1976: 'Franz Beckenbauer', 1977: 'Allan Simonsen', 1978: 'Kevin Keegan', 1979: 'Kevin Keegan',
+                1980: 'Karl-Heinz Rummenigge', 1981: 'Karl-Heinz Rummenigge', 1982: 'Paolo Rossi', 1983: 'Michel Platini',
+                1984: 'Michel Platini', 1985: 'Michel Platini', 1986: 'Igor Belanov', 1987: 'Ruud Gullit', 1988: 'Marco van Basten',
+                1989: 'Marco van Basten', 1990: 'Lothar Matthäus', 1991: 'Jean-Pierre Papin', 1992: 'Marco van Basten',
+                1993: 'Roberto Baggio', 1994: 'Hristo Stoichkov', 1995: 'George Weah', 1996: 'Matthias Sammer',
+                1997: 'Ronaldo Nazário', 1998: 'Zinedine Zidane', 1999: 'Rivaldo', 2000: 'Luís Figo', 2001: 'Michael Owen',
+                2002: 'Ronaldo Nazário', 2003: 'Pavel Nedvěd', 2004: 'Andriy Shevchenko', 2005: 'Ronaldinho',
+                2006: 'Fabio Cannavaro', 2007: 'Kaká', 2008: 'Cristiano Ronaldo', 2009: 'Lionel Messi',
+                2010: 'Lionel Messi', 2011: 'Lionel Messi', 2012: 'Lionel Messi', 2013: 'Cristiano Ronaldo',
+                2014: 'Cristiano Ronaldo', 2015: 'Lionel Messi', 2016: 'Cristiano Ronaldo', 2017: 'Cristiano Ronaldo',
+                2018: 'Luka Modrić', 2019: 'Lionel Messi', 2020: 'Award Cancelled due to COVID', 2021: 'Lionel Messi',
+                2022: 'Karim Benzema', 2023: 'Lionel Messi', 2024: 'Rodri'
+            };
+            
+            let winner = ballonWinners[currentYear] || 'No winner announced';
+            
+            if (currentYear == 2020) {
+                winner = 'Award Cancelled due to COVID';
+            }
+            
+            if (!detailsDiv.classList.contains('show')) {
+                // Show ballon d'or winner
+                winnerDiv.textContent = winner;
+                detailsDiv.classList.add('show');
+                this.classList.add('expanded');
+                
+
+            } else {
+                // Hide ballon d'or winner
+                detailsDiv.classList.remove('show');
+                this.classList.remove('expanded');
+            }
+        });
+
+        // Add event listeners for new stat cards
+        document.getElementById('topScorerCard').addEventListener('click', function() {
+            const detailsDiv = document.getElementById('topScorerDetails');
+            if (!detailsDiv.classList.contains('show')) {
+                detailsDiv.classList.add('show');
+                this.classList.add('expanded');
+            } else {
+                detailsDiv.classList.remove('show');
+                this.classList.remove('expanded');
+            }
+        });
+        document.getElementById('debutsRetirementsCard').addEventListener('click', function() {
+            const detailsDiv = document.getElementById('debutsRetirementsDetails');
+            if (!detailsDiv.classList.contains('show')) {
+                detailsDiv.classList.add('show');
+                this.classList.add('expanded');
+            } else {
+                detailsDiv.classList.remove('show');
+                this.classList.remove('expanded');
+            }
+        });
+        document.getElementById('fifaRankingsCard').addEventListener('click', function() {
+            const detailsDiv = document.getElementById('fifaRankingsDetails');
+            if (!detailsDiv.classList.contains('show')) {
+                detailsDiv.classList.add('show');
+                this.classList.add('expanded');
+            } else {
+                detailsDiv.classList.remove('show');
+                this.classList.remove('expanded');
+            }
+        });
+        document.getElementById('majorChampionsCard').addEventListener('click', function() {
+            const detailsDiv = document.getElementById('majorChampionsDetails');
+            if (!detailsDiv.classList.contains('show')) {
+                detailsDiv.classList.add('show');
+                this.classList.add('expanded');
+            } else {
+                detailsDiv.classList.remove('show');
+                this.classList.remove('expanded');
+            }
+        });
+        document.getElementById('iconicMomentCard').addEventListener('click', function() {
+            const detailsDiv = document.getElementById('iconicMomentDetails');
+            if (!detailsDiv.classList.contains('show')) {
+                detailsDiv.classList.add('show');
+                this.classList.add('expanded');
+            } else {
+                detailsDiv.classList.remove('show');
+                this.classList.remove('expanded');
+            }
+        });
+        document.getElementById('transferCard').addEventListener('click', function() {
+            const detailsDiv = document.getElementById('transferDetails');
+            if (!detailsDiv.classList.contains('show')) {
+                detailsDiv.classList.add('show');
+                this.classList.add('expanded');
+            } else {
+                detailsDiv.classList.remove('show');
+                this.classList.remove('expanded');
+            }
+        });
+
+        // Initialize
+        window.addEventListener('load', function() {
+            updateYear(2024);
+        });
+    </script>
+</body>
+</html>

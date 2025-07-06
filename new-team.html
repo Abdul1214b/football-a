@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Team - Football Legends</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #667eea;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .page-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .team-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .team-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .team-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .section-count {
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .players-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .player-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .player-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .player-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #667eea;
+        }
+
+        .player-details {
+            flex: 1;
+        }
+
+        .player-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+
+        .player-info {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .player-rating {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background: #c82333;
+            transform: scale(1.05);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-actions {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .main-content {
+                padding: 0 1rem;
+            }
+            
+            .team-sections {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="new-dashboard.html" class="logo">
+                <i class="fas fa-futbol"></i>
+                <span>Football Legends</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="new-dashboard.html">Dashboard</a></li>
+                <li><a href="new-team.html">My Team</a></li>
+                <li><a href="new-market.html">Market</a></li>
+                <li><a href="new-statistics.html">Statistics</a></li>
+                <li><a href="new-history.html">History</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1>My Team</h1>
+            <p>Manage your purchased players and team composition</p>
+        </div>
+
+        <div class="team-stats">
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h3 id="totalPlayers">0</h3>
+                <p>Total Players</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-star"></i>
+                <h3 id="avgRating">0</h3>
+                <p>Average Rating</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3 id="totalValue">$0</h3>
+                <p>Team Value</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-trophy"></i>
+                <h3 id="teamStrength">0</h3>
+                <p>Team Strength</p>
+            </div>
+        </div>
+
+        <div class="team-sections">
+            <div class="team-section">
+                <div class="section-header">
+                    <span class="section-title">Starting XI</span>
+                    <span class="section-count" id="startingCount">0</span>
+                </div>
+                <div class="players-list" id="startingList">
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <h3>No players selected</h3>
+                        <p>Add players to your starting lineup</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="section-header">
+                    <span class="section-title">Bench</span>
+                    <span class="section-count" id="benchCount">0</span>
+                </div>
+                <div class="players-list" id="benchList">
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <h3>No players on bench</h3>
+                        <p>Add players to your bench</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-actions">
+            <div class="action-buttons">
+                <a href="new-market.html" class="action-btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Players
+                </a>
+                <button class="action-btn btn-secondary" onclick="clearTeam()">
+                    <i class="fas fa-trash"></i> Clear Team
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// Expanded player data (copied from new-market.html)
+const playersData = {
+    kylian: { name: 'Kylian Mbappé', position: 'Forward', image: 'kylian.jpg', rating: 91, price: 120 },
+    vini: { name: 'Vinícius Júnior', position: 'Forward', image: 'vini.jpg', rating: 89, price: 100 },
+    jude: { name: 'Jude Bellingham', position: 'Midfielder', image: 'jude.jpg', rating: 88, price: 95 },
+    federico: { name: 'Federico Valverde', position: 'Midfielder', image: 'federico.jpg', rating: 87, price: 85 },
+    luka: { name: 'Luka Modrić', position: 'Midfielder', image: 'luka.jpg', rating: 86, price: 75 },
+    guler: { name: 'Arda Güler', position: 'Midfielder', image: 'guler.jpg', rating: 82, price: 60 },
+    tchouameni: { name: 'Aurélien Tchouaméni', position: 'Midfielder', image: 'tochi.jpg', rating: 84, price: 70 },
+    gracia: { name: 'Fran Garcia', position: 'Defender', image: 'garcia.jpg', rating: 80, price: 50 },
+    mendy: { name: 'Ferland Mendy', position: 'Defender', image: 'mendy.jpg', rating: 84, price: 70 },
+    david: { name: 'David Alaba', position: 'Defender', image: 'david.jpg', rating: 83, price: 65 },
+    cama: { name: 'Eduardo Camavinga', position: 'Midfielder', image: 'cama.jpg', rating: 85, price: 80 },
+    rodrygo: { name: 'Rodrygo', position: 'Forward', image: 'Rodrygo.jpg', rating: 86, price: 90 },
+    endrick: { name: 'Endrick', position: 'Forward', image: 'Endrick.jpg', rating: 80, price: 60 },
+    thi: { name: 'Thibaut Courtois', position: 'Goalkeeper', image: 'thi.jpg', rating: 88, price: 80 },
+    eder: { name: 'Éder Militão', position: 'Defender', image: 'eder.jpg', rating: 85, price: 75 },
+    antonio: { name: 'Antonio Rüdiger', position: 'Defender', image: 'antonio.jpg', rating: 84, price: 70 },
+    dani: { name: 'Dani Carvajal', position: 'Defender', image: 'carvajal.jpg', rating: 83, price: 65 },
+    lunin: { name: 'Andriy Lunin', position: 'Goalkeeper', image: 'lunin.jpg', rating: 80, price: 45 },
+    lucas: { name: 'Lucas Vázquez', position: 'Defender', image: 'lucas.jpg', rating: 81, price: 55 },
+    brahim: { name: 'Brahim Díaz', position: 'Midfielder', image: 'brahim.jpg', rating: 82, price: 60 },
+    salah: { name: 'Mohamed Salah', position: 'Forward', image: 'salah.jfif', rating: 90, price: 110 },
+    vandijk: { name: 'Virgil van Dijk', position: 'Defender', image: 'van.jpg', rating: 89, price: 95 },
+    alisson: { name: 'Alisson Becker', position: 'Goalkeeper', image: 'alisson.jpg', rating: 89, price: 85 },
+    nunez: { name: 'Darwin Nunez', position: 'Forward', image: 'darwin.webp', rating: 84, price: 70 },
+    trent: { name: 'Trent Alexander-Arnold', position: 'Defender', image: 'trent.webp', rating: 86, price: 80 },
+    mac: { name: 'Alexis Mac Alister', position: 'Midfielder', image: 'mac.jfif', rating: 83, price: 65 },
+    robertson: { name: 'Andrew Robertson', position: 'Defender', image: 'robo.jpg', rating: 85, price: 75 },
+    dominick: { name: 'Dominik Szoboszlai', position: 'Midfielder', image: 'dominick.webp', rating: 84, price: 70 },
+    harvey: { name: 'Harvey Elliott', position: 'Midfielder', image: 'harvey.jpg', rating: 80, price: 55 },
+    kelleher: { name: 'Caoimhin Kelleher', position: 'Goalkeeper', image: 'kelleher.jfif', rating: 78, price: 40 },
+    gakpo: { name: 'Cody Gakpo', position: 'Forward', image: 'cody.jpg', rating: 84, price: 75 },
+    luis: { name: 'Luis Diaz', position: 'Forward', image: 'luis.webp', rating: 85, price: 80 },
+    jota: { name: 'Diogo Jota', position: 'Forward', image: 'jota.jpg', rating: 84, price: 75 },
+    endo: { name: 'Wataru Endo', position: 'Midfielder', image: 'endo.jpg', rating: 80, price: 50 },
+    chiesa: { name: 'Federico Chiesa', position: 'Forward', image: 'chiesa.webp', rating: 86, price: 85 },
+    curtis: { name: 'Curtis Jones', position: 'Midfielder', image: 'curtis.webp', rating: 80, price: 55 },
+    gravenberch: { name: 'Ryan Gravenberch', position: 'Midfielder', image: 'gravenberch.jfif', rating: 82, price: 60 },
+    konate: { name: 'Ibrahima Konaté', position: 'Defender', image: 'konate.jpg', rating: 83, price: 65 },
+    bradley: { name: 'Conor Bradley', position: 'Defender', image: 'bradley.jpg', rating: 78, price: 40 },
+    tsimikas: { name: 'Kostas Tsimikas', position: 'Defender', image: 'tsimikas.webp', rating: 79, price: 45 },
+    messi: { name: 'Lionel Messi', position: 'Forward', image: 'messi.jfif', rating: 92, price: 120 },
+    luis2: { name: 'Luis Suárez', position: 'Forward', image: 'luis.jfif', rating: 86, price: 85 },
+    sergio: { name: 'Sergio Busquets', position: 'Midfielder', image: 'sergio.jfif', rating: 84, price: 70 },
+    marcelo: { name: 'Marcelo Weigandt', position: 'Defender', image: 'marcelo.jfif', rating: 80, price: 50 },
+    farias: { name: 'Facundo Farías', position: 'Forward', image: 'farias.jfif', rating: 78, price: 45 },
+    benjamin: { name: 'Benjamin Cremaschi', position: 'Midfielder', image: 'benjamin.jfif', rating: 77, price: 40 },
+    david2: { name: 'David Ruiz', position: 'Midfielder', image: 'david.jfif', rating: 77, price: 40 },
+    fedrico: { name: 'Federico Redondo', position: 'Midfielder', image: 'fedrico.jfif', rating: 77, price: 40 },
+    noah: { name: 'Noah Allen', position: 'Defender', image: 'noah.jfif', rating: 75, price: 35 },
+    gomez: { name: 'Diego Gómez', position: 'Midfielder', image: 'gomez.jfif', rating: 77, price: 40 },
+    rojas: { name: 'Matías Rojas', position: 'Midfielder', image: 'rojas.jfif', rating: 77, price: 40 },
+    alba: { name: 'Jordi Alba', position: 'Defender', image: 'alba.jfif', rating: 82, price: 60 },
+    oscar: { name: 'Oscar Ustari', position: 'Goalkeeper', image: 'oscar.jfif', rating: 78, price: 40 },
+    drake: { name: 'Drake Callender', position: 'Goalkeeper', image: 'drake.jfif', rating: 78, price: 40 },
+    hector: { name: 'Héctor David Martínez', position: 'Defender', image: 'hector.jfif', rating: 77, price: 40 },
+    ser: { name: 'Serhiy Kryvtsov', position: 'Defender', image: 'ser.jfif', rating: 77, price: 40 },
+    julian: { name: 'Julian Gressel', position: 'Midfielder', image: 'julian.jfif', rating: 77, price: 40 },
+    robert: { name: 'Robert Taylor', position: 'Midfielder', image: 'taylor.jfif', rating: 77, price: 40 },
+    pep: { name: 'Pep Casas', position: 'Midfielder', image: 'pep.jfif', rating: 77, price: 40 },
+    nico: { name: 'Nicolás Freire', position: 'Defender', image: 'nico.jfif', rating: 77, price: 40 },
+    lautaro: { name: 'Lautaro Martinez', position: 'Forward', image: 'lautaro.jfif', rating: 86, price: 90 },
+    sommer: { name: 'Yann Sommer', position: 'Goalkeeper', image: 'sommer.jpg', rating: 84, price: 70 },
+    dimarco: { name: 'Federico Dimarco', position: 'Defender', image: 'dimarco.jfif', rating: 84, price: 70 },
+    nicolo: { name: 'Nicolo Barella', position: 'Midfielder', image: 'nicolo.jfif', rating: 85, price: 80 },
+    hakan: { name: 'Hakan Çalhanoğlu', position: 'Midfielder', image: 'hakan.jfif', rating: 85, price: 80 },
+    marcus: { name: 'Marcus Thuram', position: 'Forward', image: 'marcus.jfif', rating: 84, price: 75 },
+    hen: { name: 'Henrikh Mkhitaryan', position: 'Midfielder', image: 'hen.jfif', rating: 83, price: 70 },
+    mehdi: { name: 'Mehdi Taremi', position: 'Forward', image: 'mehdi.jfif', rating: 83, price: 70 },
+    piotr: { name: 'Piotr Zieliński', position: 'Midfielder', image: 'piotr.jfif', rating: 83, price: 70 },
+    correa: { name: 'Joaquin Correa', position: 'Forward', image: 'correa.jfif', rating: 82, price: 65 },
+    dumfries: { name: 'Denzel Dumfries', position: 'Defender', image: 'dumfries.jfif', rating: 82, price: 65 },
+    davide: { name: 'Davide Frattesi', position: 'Midfielder', image: 'davide.jfif', rating: 82, price: 65 },
+    tajon: { name: 'Tajon Buchanan', position: 'Defender', image: 'tajon.jfif', rating: 81, price: 60 },
+    pavard: { name: 'Benjamin Pavard', position: 'Defender', image: 'pavard.jfif', rating: 84, price: 70 },
+    marko: { name: 'Marko Arnautović', position: 'Forward', image: 'marko.jpg', rating: 81, price: 60 },
+    yann: { name: 'Yann Aurel Bisseck', position: 'Defender', image: 'yann.jfif', rating: 80, price: 55 },
+    tomas: { name: 'Tomás Palacios', position: 'Defender', image: 'tomas.jfif', rating: 79, price: 50 },
+    carlos: { name: 'Carlos Augusto', position: 'Defender', image: 'carlos.jfif', rating: 80, price: 55 },
+    josep: { name: 'Josep Martínez', position: 'Goalkeeper', image: 'josep.jfif', rating: 79, price: 50 },
+    bastoni: { name: 'Alessandro Bastoni', position: 'Defender', image: 'bastoni.jfif', rating: 85, price: 75 },
+    rice: { name: 'Declan Rice', position: 'Midfielder', image: 'rice.jfif', rating: 87, price: 85 },
+    saka: { name: 'Bukayo Saka', position: 'Forward', image: 'saka.jpg', rating: 88, price: 90 },
+    mikel: { name: 'Mikel Merino', position: 'Midfielder', image: 'mikel.jfif', rating: 84, price: 70 },
+    kai: { name: 'Kai Havertz', position: 'Midfielder', image: 'kai.jfif', rating: 84, price: 75 },
+    ben: { name: 'Ben White', position: 'Defender', image: 'ben.jfif', rating: 84, price: 70 },
+    martin: { name: 'Martin Ødegaard', position: 'Midfielder', image: 'martin.jfif', rating: 87, price: 85 },
+    gabriel: { name: 'Gabriel Martinelli', position: 'Forward', image: 'gabriel.jfif', rating: 85, price: 80 },
+    saliba: { name: 'William Saliba', position: 'Defender', image: 'saliba.jfif', rating: 85, price: 80 },
+    neto: { name: 'Norberto Murara Neto', position: 'Goalkeeper', image: 'neto.jfif', rating: 82, price: 60 },
+    ole: { name: 'Oleksandr Zinchenko', position: 'Defender', image: 'ole.jfif', rating: 83, price: 65 },
+    kieran: { name: 'Kieran Tierney', position: 'Defender', image: 'kieran.jfif', rating: 82, price: 60 },
+    ethan: { name: 'Ethan Nwaneri', position: 'Midfielder', image: 'ethan.jfif', rating: 77, price: 40 },
+    jesus: { name: 'Gabriel Jesus', position: 'Forward', image: 'jesus.jfif', rating: 85, price: 80 },
+    take: { name: 'Takehiro Tomiyasu', position: 'Defender', image: 'take.jfif', rating: 82, price: 60 },
+    raheem: { name: 'Raheem Sterling', position: 'Forward', image: 'raheem.jpg', rating: 85, price: 80 },
+    jorginho: { name: 'Jorginho', position: 'Midfielder', image: 'jorginho.jfif', rating: 84, price: 70 },
+    jakub: { name: 'Jakub Kiwior', position: 'Defender', image: 'jakub.jfif', rating: 80, price: 55 },
+    raya: { name: 'David Raya', position: 'Goalkeeper', image: 'raya.jfif', rating: 82, price: 60 },
+    trossard: { name: 'Leandro Trossard', position: 'Forward', image: 'trossard.jfif', rating: 84, price: 70 },
+    ricc: { name: 'Riccardo Calafiori', position: 'Defender', image: 'ricc.jfif', rating: 80, price: 55 },
+    haaland: { name: 'Erling Haaland', position: 'Forward', image: 'haaland.jfif', rating: 92, price: 120 },
+    silva: { name: 'Bernardo Silva', position: 'Midfielder', image: 'silva.jfif', rating: 88, price: 90 },
+    dias: { name: 'Ruben Dias', position: 'Defender', image: 'dias.jfif', rating: 88, price: 90 },
+    kevin: { name: 'Kevin De Bruyne', position: 'Midfielder', image: 'kevin.jfif', rating: 91, price: 110 },
+    rodri: { name: 'Rodri', position: 'Midfielder', image: 'rodri.jfif', rating: 88, price: 90 },
+    savinho: { name: 'Savinho', position: 'Forward', image: 'savinho.jfif', rating: 82, price: 60 },
+    foden: { name: 'Phil Foden', position: 'Midfielder', image: 'foden.jfif', rating: 87, price: 85 },
+    kyle: { name: 'Kyle Walker', position: 'Defender', image: 'kyle.jfif', rating: 86, price: 80 },
+    iklay: { name: 'İlkay Gündoğan', position: 'Midfielder', image: 'iklay.jfif', rating: 85, price: 80 },
+    mateo: { name: 'Mateo Kovacic', position: 'Midfielder', image: 'mateo.jpg', rating: 84, price: 75 },
+    doku: { name: 'Jérémy Doku', position: 'Forward', image: 'doku.jfif', rating: 84, price: 70 },
+    mateus: { name: 'Matheus Nunes', position: 'Midfielder', image: 'matheus.jfif', rating: 84, price: 70 },
+    jack: { name: 'Jack Grealish', position: 'Midfielder', image: 'jack.jfif', rating: 85, price: 80 },
+    ederson: { name: 'Ederson', position: 'Goalkeeper', image: 'ederson.jfif', rating: 89, price: 85 },
+    josko: { name: 'Joško Gvardiol', position: 'Defender', image: 'josko.jfif', rating: 85, price: 80 },
+    rico: { name: 'Rico Lewis', position: 'Defender', image: 'rico.jfif', rating: 80, price: 55 },
+    ake: { name: 'Nathan Aké', position: 'Defender', image: 'ake.jfif', rating: 84, price: 70 },
+    stones: { name: 'John Stones', position: 'Defender', image: 'stones.jfif', rating: 85, price: 80 },
+    akanji: { name: 'Manuel Akanji', position: 'Defender', image: 'akanji.jfif', rating: 84, price: 70 },
+    james: { name: 'James McAtee', position: 'Midfielder', image: 'james.jfif', rating: 77, price: 40 }
+};
+        let teamPlayers = [];
+        let startingXI = [];
+        let bench = [];
+
+        function loadTeam() {
+            const savedPlayers = JSON.parse(localStorage.getItem('selectedPlayers')) || [];
+            teamPlayers = savedPlayers.map(id => ({
+                id,
+                ...playersData[id]
+            })).filter(player => player.name); // Filter out invalid players
+
+            // Auto-assign players to starting XI and bench
+            startingXI = teamPlayers.slice(0, 11);
+            bench = teamPlayers.slice(11);
+
+            updateTeamDisplay();
+            updateStats();
+        }
+
+        function updateTeamDisplay() {
+            // Update Starting XI
+            const startingList = document.getElementById('startingList');
+            const startingCount = document.getElementById('startingCount');
+            
+            if (startingXI.length === 0) {
+                startingList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <h3>No players selected</h3>
+                        <p>Add players to your starting lineup</p>
+                    </div>
+                `;
+            } else {
+                startingList.innerHTML = startingXI.map(player => `
+                    <div class="player-item">
+                        <img src="${player.image}" alt="${player.name}" class="player-avatar" 
+                             onerror="this.src='https://via.placeholder.com/60x60?text=Player'">
+                        <div class="player-details">
+                            <div class="player-name">${player.name}</div>
+                            <div class="player-info">${player.position}</div>
+                        </div>
+                        <div class="player-rating">${player.rating}</div>
+                        <button class="remove-btn" onclick="removePlayer('${player.id}')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+            startingCount.textContent = startingXI.length;
+
+            // Update Bench
+            const benchList = document.getElementById('benchList');
+            const benchCount = document.getElementById('benchCount');
+            
+            if (bench.length === 0) {
+                benchList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <h3>No players on bench</h3>
+                        <p>Add players to your bench</p>
+                    </div>
+                `;
+            } else {
+                benchList.innerHTML = bench.map(player => `
+                    <div class="player-item">
+                        <img src="${player.image}" alt="${player.name}" class="player-avatar" 
+                             onerror="this.src='https://via.placeholder.com/60x60?text=Player'">
+                        <div class="player-details">
+                            <div class="player-name">${player.name}</div>
+                            <div class="player-info">${player.position}</div>
+                        </div>
+                        <div class="player-rating">${player.rating}</div>
+                        <button class="remove-btn" onclick="removePlayer('${player.id}')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+            benchCount.textContent = bench.length;
+        }
+
+        function updateStats() {
+            const totalPlayers = teamPlayers.length;
+            const avgRating = totalPlayers > 0 ? Math.round(teamPlayers.reduce((sum, p) => sum + p.rating, 0) / totalPlayers) : 0;
+            const totalValue = teamPlayers.reduce((sum, p) => sum + p.price, 0);
+            const teamStrength = Math.round((avgRating * totalPlayers) / 10);
+
+            document.getElementById('totalPlayers').textContent = totalPlayers;
+            document.getElementById('avgRating').textContent = avgRating;
+            document.getElementById('totalValue').textContent = `$${totalValue}`;
+            document.getElementById('teamStrength').textContent = teamStrength;
+        }
+
+        function removePlayer(playerId) {
+            teamPlayers = teamPlayers.filter(p => p.id !== playerId);
+            startingXI = startingXI.filter(p => p.id !== playerId);
+            bench = bench.filter(p => p.id !== playerId);
+            
+            // Rebalance team
+            startingXI = teamPlayers.slice(0, 11);
+            bench = teamPlayers.slice(11);
+            
+            // Update localStorage
+            localStorage.setItem('selectedPlayers', JSON.stringify(teamPlayers.map(p => p.id)));
+            
+            updateTeamDisplay();
+            updateStats();
+        }
+
+        function clearTeam() {
+            if (confirm('Are you sure you want to clear your entire team?')) {
+                localStorage.removeItem('selectedPlayers');
+                teamPlayers = [];
+                startingXI = [];
+                bench = [];
+                updateTeamDisplay();
+                updateStats();
+            }
+        }
+
+        // Load team on page load
+        window.addEventListener('load', loadTeam);
+    </script>
+</body>
+</html> 
