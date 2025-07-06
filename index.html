@@ -4,12 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Football Legends</title>
-    <meta http-equiv="refresh" content="0; url=new-index.html">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
-    <p>Redirecting to Football Legends...</p>
-    <script>
-        window.location.href = 'new-index.html';
-    </script>
+    <div class="container">
+        <h1>⚽ Football Legends</h1>
+        <p>Welcome to the ultimate football management game!</p>
+        <div>
+            <a href="new-index.html" class="btn">🎮 Start Game</a>
+            <a href="new-dashboard.html" class="btn">📊 Dashboard</a>
+            <a href="new-players.html" class="btn">👥 Players</a>
+            <a href="new-team.html" class="btn">🏆 Team</a>
+        </div>
+    </div>
 </body>
 </html> 
